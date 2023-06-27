@@ -13,7 +13,7 @@ struct ContentView: View {
         switch uistate{
         case is MainScreenViewModelUiStateLoading: Text("Loading");
         case let uiState2 as MainScreenViewModelUiStateData :
-            List{
+            List {
                 ForEach(uiState2.movies, id: \.self){ movie in
                     HStack{
                         AsyncImage(
@@ -25,7 +25,7 @@ struct ContentView: View {
                                 case .success(let image):
                                     image.resizable()
                                         .aspectRatio(contentMode: .fit)
-                                        .frame(maxWidth: 100, maxHeight: 200)
+                                        .frame(width: 100, height: 150)
                                 case .failure:
                                     Image(systemName: "Load failed")
                                 default:
@@ -33,14 +33,25 @@ struct ContentView: View {
                                 }
                             }
                         )
+                        .cornerRadius(5) // Inner corner radius
+//                        .padding(5) // Width of the border
+                        .background(.clear) // Color of the border
+                        .cornerRadius(5)
                         VStack(alignment: .leading){
                             Text("**\(movie.title)**")
                             Text(movie.description_)
                         }
                     }
-                    
+                    .listRowSeparator(.hidden)
+                    .frame(maxHeight: 150)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(.gray, lineWidth: 0.5)
+                    )
+
                 }
             }
+            .listStyle(.plain)
         case is MainScreenViewModelUiStateError: Text("Error");
         default : Text("Unknown");
         }
