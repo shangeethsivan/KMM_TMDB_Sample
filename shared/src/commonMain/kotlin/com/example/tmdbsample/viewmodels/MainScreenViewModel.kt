@@ -1,5 +1,6 @@
 package com.example.tmdbsample.viewmodels
 
+import com.example.tmdbsample.locale.getDeviceRegion
 import com.example.tmdbsample.models.Movie
 import com.example.tmdbsample.repository.MovieRepository
 import com.example.tmdbsample.repository.MovieRepositoryImpl
@@ -24,7 +25,8 @@ class MainScreenViewModel : KMMViewModel() {
     private fun getData() {
         viewModelScope.coroutineScope.launch {
             try {
-                val movies = repository.getMovies()
+
+                val movies = repository.getMovies(getDeviceRegion())
                 _uiState.update { UiState.Data(movies) }
             } catch (ex: Exception) {
                 _uiState.update { UiState.Error("Api Failure") }

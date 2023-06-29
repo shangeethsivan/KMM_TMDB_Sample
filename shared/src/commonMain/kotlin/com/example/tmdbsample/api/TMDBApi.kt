@@ -8,7 +8,6 @@ import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
-import io.ktor.http.Headers
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -31,8 +30,12 @@ class TMDBApi {
         }
     }
 
-    suspend fun getAllMovies(): MoviesWrapper {
-        return httpClient.get("$BASE_URL/discover/movie").body()
+    suspend fun getAllMovies(region: String): MoviesWrapper {
+        return httpClient.get("$BASE_URL/discover/movie") {
+            url {
+                parameters.append("region", region)
+            }
+        }.body()
     }
 
     companion object {

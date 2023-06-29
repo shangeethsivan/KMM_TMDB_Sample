@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tmdbsample.android.CoilImage
@@ -37,7 +38,7 @@ fun MovieCard(movie: Movie) {
                 Spacer(modifier = Modifier.width(10.dp))
                 Column {
                     Text(text = movie.title, color = Color.Black, fontWeight = FontWeight.Bold)
-                    Text(text = movie.description)
+                    Text(text = movie.description, overflow = TextOverflow.Ellipsis)
                 }
             }
         }
